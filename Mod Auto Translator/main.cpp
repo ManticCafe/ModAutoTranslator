@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
 	// 创建输出文件夹
 	createOutputDir(outputPath);
 
+	// 接收参数: mode-模式、path-jar文件路径
 	Message message = executionParameters(argc, argv);
 	// 错误处理
 	if (strcmp(message.path.c_str(), "null") == 0) {
