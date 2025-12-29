@@ -1,7 +1,4 @@
 ﻿#include <stdio.h>
-#include <stdlib.h>
-#include <Windows.h>
-#include <conio.h>
 #include "FileFunction.h"
 #include "Parameters.h"
 
@@ -27,5 +24,7 @@ int main(int argc, char* argv[]) {
 	if (strcmp(message.path.c_str(), "null") == 0) {
 		return -1;
 	}
+
+
 	return 0;
 }
