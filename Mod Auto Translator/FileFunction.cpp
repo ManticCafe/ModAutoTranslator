@@ -39,8 +39,11 @@ bool creatConfigFile() {
 	if (configFile.is_open()) {
 
 		configFile << "{" << std::endl;
+		configFile << "    \"model\" : null," << std::endl;
 		configFile << "    \"API\" : null," << std::endl;
 		configFile << "    \"KEY\" : null," << std::endl;
+		configFile << "    \"temperature\" : 1.3," << std::endl;
+		configFile << "    \"max_tokens\" : 500," << std::endl;
 		configFile << "    \"outputPath\" : \"./output/\"" << std::endl;
 		configFile << "}" << std::endl;
 
@@ -53,7 +56,7 @@ bool creatConfigFile() {
 	}
 }
 
-bool readConfigFile(std::string& API, std::string& KEY, std::string& outputPath) {
+bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath) {
 	std::string filename = "ModAutoTranslator-config.json";
 	if (std::filesystem::exists(filename)) {
 		
@@ -67,6 +70,13 @@ bool readConfigFile(std::string& API, std::string& KEY, std::string& outputPath)
 		nlohmann::json data = nlohmann::json::parse(configFile);
 		configFile.close();
 
+		if (data["model"].is_null()) {
+			printf("ÇëÌîÐ´model\n");
+			return false;
+		} else {
+			model = data["model"].get<std::string>();
+		}
+
 		if (data["API"].is_null()) {
 			printf("ÇëÌîÐ´API\n");
 			return false;
@@ -79,6 +89,20 @@ bool readConfigFile(std::string& API, std::string& KEY, std::string& outputPath)
 			return false;
 		} else {
 			KEY = data["KEY"].get<std::string>();
+		}
+
+		if (data["temperature"].is_null()) {
+			printf("ÇëÌîÐ´temperature\n");
+			return false;
+		} else {
+			temperature = data["temperature"];
+		}
+
+		if (data["max_tokens"].is_null()) {
+			printf("ÇëÌîÐ´max_tokens\n");
+			return false;
+		} else {
+			max_tokens = data["max_tokens"];
 		}
 
 		if (data["outputPath"].is_null()) {

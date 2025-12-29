@@ -20,7 +20,7 @@ std::string getFileName(char* fileName);
 bool creatConfigFile();
 
 // 读取配置文件 如果配置文件不存在则创建
-bool readConfigFile(std::string& API, std::string& KEY, std::string& outputPath);
+bool readConfigFile(std::string& model,std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath);
 
 // 检查文件夹是否存在 不存在则创建
 bool checkDir(char* dirPath);
