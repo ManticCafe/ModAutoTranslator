@@ -9,19 +9,19 @@ bool isJar(char* file) {
 
 std::string getFileExtension(char* file) {
 	char dot = '.';
-	const char* lastDot = strrchr(fileName, (int)dot);
-	if (!lastDot || lastDot == fileName) {
+	const char* lastDot = strrchr(file, (int)dot);
+	if (!lastDot || lastDot == file) {
 		return "";
 	}
 	return std::string(lastDot);
 }
 
 std::string getFileName(char* file) {
-	const char* lastSeparator = strrchr(fileName, '\\');
+	const char* lastSeparator = strrchr(file, '\\');
 	if (!lastSeparator) {
-		lastSeparator = strrchr(fileName, '/');
+		lastSeparator = strrchr(file, '/');
 		if (!lastSeparator) {
-			lastSeparator = fileName - 1;
+			lastSeparator = file - 1;
 		}
 	}
 	const char* nameStart = lastSeparator + 1;

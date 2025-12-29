@@ -33,8 +33,8 @@ void createOutputDir(std::string outputPath);
 
 // =============待实现=============
 
-// 解压 Jar 文件
-bool unZipJarFile(char* file);
+// 解压 Jar 文件 成功返回true
+bool unZipFile(char* file);
 
-// 压缩jar文件
-bool ZipJarFile(char* file,char* zipFileType);
+// 压缩文件
+bool ZipFile(char* file,char* zipFileType);
