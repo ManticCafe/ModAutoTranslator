@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Mod Auto Translator/Mod Auto Translator.vcxproj" Id="3d9ace3c-4747-431e-b3bf-d481291bb5c0" />
+</Solution>
