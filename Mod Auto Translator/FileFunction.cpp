@@ -7,7 +7,7 @@ bool isJar(char* file) {
 	return extLower == ".jar";
 }
 
-std::string getFileExtension(char* fileName) {
+std::string getFileExtension(char* file) {
 	char dot = '.';
 	const char* lastDot = strrchr(fileName, (int)dot);
 	if (!lastDot || lastDot == fileName) {
@@ -16,7 +16,7 @@ std::string getFileExtension(char* fileName) {
 	return std::string(lastDot);
 }
 
-std::string getFileName(char* fileName) {
+std::string getFileName(char* file) {
 	const char* lastSeparator = strrchr(fileName, '\\');
 	if (!lastSeparator) {
 		lastSeparator = strrchr(fileName, '/');

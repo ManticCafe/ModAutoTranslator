@@ -11,10 +11,10 @@
 bool isJar(char* file);
 
 // 获取拓展名
-std::string getFileExtension(char* filename);
+std::string getFileExtension(char* file);
 
 // 获取文件名
-std::string getFileName(char* fileName);
+std::string getFileName(char* file);
 
 // 创建配置文件 成功返回true
 bool creatConfigFile();
@@ -30,3 +30,11 @@ bool createDir(char* dirPath);
 
 // 创建输出文件夹
 void createOutputDir(std::string outputPath);
+
+// =============待实现=============
+
+// 解压 Jar 文件
+bool unZipJarFile(char* file);
+
+// 压缩jar文件
+bool ZipJarFile(char* file,char* zipFileType);
