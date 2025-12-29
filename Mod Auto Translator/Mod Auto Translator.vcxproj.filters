@@ -18,18 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FileFunction.cpp">
+    <ClCompile Include="src\FileFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Parameters.cpp">
+    <ClCompile Include="src\Parameters.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileFunction.h">
+    <ClInclude Include="include\Parameters.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Parameters.h">
+    <ClInclude Include="include\FileFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

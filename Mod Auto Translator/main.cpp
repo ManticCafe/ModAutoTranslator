@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
-#include "FileFunction.h"
-#include "Parameters.h"
+#include "include/FileFunction.h"
+#include "include/Parameters.h"
 
 int main(int argc, char* argv[]) {
 
@@ -29,11 +29,11 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	// 解压文件 unZipFile函数还未实现
-	if (!unZipFile(message.path.data())) {
-		printf("文件解压失败");
-		return -1;
-	}
+	//// 解压文件 unZipFile函数还未实现
+	//if (!unZipFile(message.path.data())) {
+	//	printf("文件解压失败");
+	//	return -1;
+	//}
 
 	return 0;
 }
