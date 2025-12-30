@@ -29,11 +29,34 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	//// 解压文件 unZipFile函数还未实现
-	//if (!unZipFile(message.path.data())) {
-	//	printf("文件解压失败");
-	//	return -1;
-	//}
+	// 模式流程判断
+	if (strcmp(message.mode.data(), "-r") == 0) { // 资源包模式
+		// 创建子文件夹
+		std::string zdir = outputPath + getFileName(message.path.data()).c_str();
+		checkDir(zdir.data());
+
+		// 解压mods.toml
+		std::string tomlPath = "META-INF/mods.toml";
+		std::string mcmeta = "pack.mcmeta";
+		if (!unZipFile(message.path.data(), zdir.data(), tomlPath.data())) {
+			printf("toml文件解压失败");
+			return -1;
+		}
+		if (!unZipFile(message.path.data(), zdir.data(), mcmeta.data())) {
+			printf("pack.mcmeta文件解压失败");
+			return -1;
+		}
+
+		// 读取mod.toml获取mod_id
+
+
+		// 读取pack.mcmeta获取版本
+
+	}
+
+	if (strcmp(message.mode.data(), "-d") == 0) { // 修改jar包模式
+
+	}
 
 	return 0;
 }

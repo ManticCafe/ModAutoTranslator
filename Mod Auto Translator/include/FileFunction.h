@@ -5,7 +5,11 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
+#include <vector>
+#include <cstring>
+#include <algorithm>
 #include <nlohmann/json.hpp>
+#include <toml.hpp>
 
 // 判断是否是jar文件
 bool isJar(char* file);
@@ -31,10 +35,12 @@ bool createDir(char* dirPath);
 // 创建输出文件夹
 void createOutputDir(std::string outputPath);
 
+// 解压 Jar 文件 成功返回true 文件名，要单独解压的文件在压缩包内的路径
+bool unZipFile(char* file, char* outputPath, char* filePath);
+
 // =============待实现=============
 
-// 解压 Jar 文件 成功返回true
-bool unZipFile(char* file);
+bool readtoml(char& mode_id, char* tomlpath);
 
 // 压缩文件
-bool ZipFile(char* file,char* zipFileType);
+bool ZipFile(char* file, char* outputPath, char* zipFileType);
