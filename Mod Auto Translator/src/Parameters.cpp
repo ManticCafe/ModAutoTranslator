@@ -98,4 +98,6 @@ bool rMode(Message message, std::string outputPath,std::string& mod_id, int& pac
 
 
 	// Ñ¹Ëõ°üÊä³öÄ¿Â¼ zdir
+
+	return true;
 }
