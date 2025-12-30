@@ -336,5 +336,7 @@ bool readJSON(int& output, std::string filepath) {
             output = data["pack"]["pack_format"];
             return true;
         }
+    } else {
+        return false;
     }
 }

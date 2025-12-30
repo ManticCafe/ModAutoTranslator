@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
