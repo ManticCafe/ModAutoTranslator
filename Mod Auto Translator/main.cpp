@@ -1,8 +1,13 @@
 ﻿#include <stdio.h>
+#include <windows.h>
 #include "include/FileFunction.h"
 #include "include/Parameters.h"
 
 int main(int argc, char* argv[]) {
+
+	// 设置控制台编码
+	SetConsoleOutputCP(936);
+	SetConsoleCP(936);
 
 	// =================配置文件所需的变量声明===============
 
