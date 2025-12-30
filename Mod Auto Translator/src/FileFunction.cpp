@@ -56,11 +56,11 @@ bool creatConfigFile() {
 	}
 }
 
-bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath) {
-	std::string filename = "ModAutoTranslator-config.json";
+bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath) {
+	std::string filename = filepath;
 	if (std::filesystem::exists(filename)) {
 		
-		std::ifstream configFile("ModAutoTranslator-config.json");
+		std::ifstream configFile(filename);
 
 		if (!configFile.is_open()) {
 			printf("配置文件打开失败\n");
@@ -312,5 +312,29 @@ bool readModIdToml(std::string& mod_id, char* tomlpath) {
     } catch (...) {
         mod_id.clear();
         return false;
+    }
+}
+
+bool readJSON(int& output, std::string filepath) {
+	std::string filename = filepath;
+    if (std::filesystem::exists(filename)) {
+
+        std::ifstream configFile(filename);
+
+        if (!configFile.is_open()) {
+            printf("配置文件打开失败\n");
+            return false;
+        }
+
+        nlohmann::json data = nlohmann::json::parse(configFile);
+        configFile.close();
+
+        if (data["pack"]["pack_format"].is_null()) {
+            printf("读取pack_format失败\n");
+            return false;
+        } else {
+            output = data["pack"]["pack_format"];
+            return true;
+        }
     }
 }

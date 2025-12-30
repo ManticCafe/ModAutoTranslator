@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	//==================逻辑部分==========================
 
 	// 读取配置文件，如果配置文件不存在则创建配置文件
-	readConfigFile(model,API,KEY, temperature, max_tokens,outputPath);
+	readConfigFile(model,API,KEY, temperature, max_tokens,outputPath, "ModAutoTranslator-config.json");
 
 	// 创建输出文件夹
 	createOutputDir(outputPath);
@@ -59,6 +59,14 @@ int main(int argc, char* argv[]) {
 		}
 
 		// 读取pack.mcmeta获取版本
+		if (readJSON(pack_format, (zdir + "/" + mcmeta).data())) {
+			std::cout << "读取到pack_format: " << pack_format << std::endl;
+		} else {
+			printf("读取失败");
+		}
+
+		// 解压lang文件
+
 
 	}
 

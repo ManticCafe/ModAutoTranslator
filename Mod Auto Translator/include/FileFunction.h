@@ -24,7 +24,10 @@ std::string getFileName(char* file);
 bool creatConfigFile();
 
 // 读取配置文件 如果配置文件不存在则创建
-bool readConfigFile(std::string& model,std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath);
+bool readConfigFile(std::string& model,std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath);
+
+// 读取json文件
+bool readJSON(int& output, std::string filepath);
 
 // 检查文件夹是否存在 不存在则创建
 bool checkDir(char* dirPath);
@@ -38,10 +41,10 @@ void createOutputDir(std::string outputPath);
 // 解压 Jar 文件 成功返回true 文件名，要单独解压的文件在压缩包内的路径
 bool unZipFile(char* file, char* outputPath, char* filePath);
 
-// =============待实现=============
-
 // 读取toml
 bool readModIdToml(std::string& mod_id, char* tomlpath);
 
+// =============待实现=============
+// 
 // 压缩文件
 bool ZipFile(char* file, char* outputPath, char* zipFileType);
