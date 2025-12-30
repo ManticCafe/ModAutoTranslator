@@ -40,7 +40,8 @@ bool unZipFile(char* file, char* outputPath, char* filePath);
 
 // =============待实现=============
 
-bool readtoml(char& mode_id, char* tomlpath);
+// 读取toml
+bool readModIdToml(std::string& mod_id, char* tomlpath);
 
 // 压缩文件
 bool ZipFile(char* file, char* outputPath, char* zipFileType);

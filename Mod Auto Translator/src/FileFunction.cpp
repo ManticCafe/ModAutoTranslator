@@ -303,3 +303,14 @@ bool unZipFile(char* file, char* outputPath, char* filePath) {
     std::cout << "解压完成: " << extracted_count << " 个文件已解压到 " << output_dir << std::endl;
     return true;
 }
+
+bool readModIdToml(std::string& mod_id, char* tomlpath) {
+    try {
+        auto file = toml::parse_file(tomlpath);
+        mod_id = file["mods"][0]["modId"].value_or<std::string>("");
+        return true;
+    } catch (...) {
+        mod_id.clear();
+        return false;
+    }
+}

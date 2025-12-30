@@ -31,6 +31,10 @@ int main(int argc, char* argv[]) {
 
 	// 模式流程判断
 	if (strcmp(message.mode.data(), "-r") == 0) { // 资源包模式
+
+		std::string mod_id; // 模组id
+		int pack_format; // 数据包版本编号
+
 		// 创建子文件夹
 		std::string zdir = outputPath + getFileName(message.path.data()).c_str();
 		checkDir(zdir.data());
@@ -48,7 +52,11 @@ int main(int argc, char* argv[]) {
 		}
 
 		// 读取mod.toml获取mod_id
-
+		if (readModIdToml(mod_id,(zdir + "/" + tomlPath).data())) {
+			std::cout << "读取到modID: " << mod_id << std::endl;
+		} else {
+			printf("读取失败");
+		}
 
 		// 读取pack.mcmeta获取版本
 
