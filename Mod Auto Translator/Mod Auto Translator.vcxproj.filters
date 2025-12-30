@@ -24,12 +24,18 @@
     <ClCompile Include="src\Parameters.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\AI_API.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Parameters.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\FileFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AI_API.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

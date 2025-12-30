@@ -150,11 +150,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AI_API.cpp" />
     <ClCompile Include="src\FileFunction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Parameters.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AI_API.h" />
     <ClInclude Include="include\FileFunction.h" />
     <ClInclude Include="include\Parameters.h" />
   </ItemGroup>
