@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 		std::string tomlPath = "META-INF/mods.toml";
 		std::string mcmeta = "pack.mcmeta";
 		if (!unZipFile(message.path.data(), zdir.data(), tomlPath.data())) {
-			printf("toml文件解压失败");
+			printf("mods.toml文件解压失败");
 			return -1;
 		}
 		if (!unZipFile(message.path.data(), zdir.data(), mcmeta.data())) {
