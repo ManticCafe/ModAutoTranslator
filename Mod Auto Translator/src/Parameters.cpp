@@ -52,23 +52,24 @@ bool rMode(Message message, std::string outputPath,std::string& mod_id, int& pac
 	// 创建子文件夹
 	std::string zdir = outputPath + getFileName(message.path.data()).c_str();
 	checkDir(zdir.data());
+	checkDir((zdir + "/cache").data());
 
 	// 解压mods.toml
 	std::string tomlPath = "META-INF/mods.toml";
 	std::string mcmeta = "pack.mcmeta";
 
-	if (!unZipFile(message.path.data(), zdir.data(), tomlPath.data())) {
+	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), tomlPath.data())) {
 		printf("mods.toml文件解压失败");
 		return false;
 	}
 
-	if (!unZipFile(message.path.data(), zdir.data(), mcmeta.data())) {
+	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), mcmeta.data())) {
 		printf("pack.mcmeta文件解压失败");
 		return false;
 	}
 
 	// 读取mod.toml获取mod_id
-	if (readModIdToml(mod_id, (zdir + "/" + tomlPath).data())) {
+	if (readModIdToml(mod_id, (zdir + "/cache/" + tomlPath).data())) {
 		std::cout << "读取到modID: " << mod_id << std::endl;
 	} else {
 		printf("modID读取失败");
@@ -76,7 +77,7 @@ bool rMode(Message message, std::string outputPath,std::string& mod_id, int& pac
 	}
 
 	// 读取pack.mcmeta获取版本
-	if (readJSON(pack_format, (zdir + "/" + mcmeta).data())) {
+	if (readJSON(pack_format, (zdir + "/cache/" + mcmeta).data())) {
 		std::cout << "读取到pack_format: " << pack_format << std::endl;
 	} else {
 		printf("pack_format读取失败");
@@ -84,11 +85,17 @@ bool rMode(Message message, std::string outputPath,std::string& mod_id, int& pac
 	}
 
 	// 解压lang文件
-	if (!unZipFile(message.path.data(), zdir.data(), ("assets/" + mod_id + "/lang/en_us.json").data())) {
+	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), ("assets/" + mod_id + "/lang/en_us.json").data())) {
 		printf("pack.mcmeta文件解压失败");
 		return false;
 	}
 
 	// 遍历json文件并发送给ai处理
 
+
+
+
+
+
+	// 压缩包输出目录 zdir
 }
