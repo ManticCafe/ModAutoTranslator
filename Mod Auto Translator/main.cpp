@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 		std::string mod_id; // 模组id
 		int pack_format; // 数据包版本编号
 		
-		if (!rMode(message,outputPath,mod_id,pack_format)) {
+		if (!rMode(message,outputPath,mod_id,pack_format,model,API,KEY,temperature,max_tokens)) {
 			return 1;
 		}
 

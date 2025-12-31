@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\packages\curl-vc140-static-32_64.7.53.0\lib\native\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -86,8 +86,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -98,7 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\packages\curl-vc140-static-32_64.7.53.0\lib\native\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -106,8 +106,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\packages\curl-vc140-static-32_64.7.53.0\lib\native\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -125,8 +125,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\toml++;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\packages\curl-vc140-static-32_64.7.53.0\lib\native\include;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -145,18 +145,18 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AI_API.cpp" />
+    <ClCompile Include="src\Translator.cpp" />
     <ClCompile Include="src\FileFunction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Parameters.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AI_API.h" />
+    <ClInclude Include="include\Translator.h" />
     <ClInclude Include="include\FileFunction.h" />
     <ClInclude Include="include\Parameters.h" />
   </ItemGroup>
@@ -168,6 +168,7 @@
     <Import Project="..\packages\libzip.redist.1.1.2.7\build\native\libzip.redist.targets" Condition="Exists('..\packages\libzip.redist.1.1.2.7\build\native\libzip.redist.targets')" />
     <Import Project="..\packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets" Condition="Exists('..\packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" />
     <Import Project="..\packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" />
+    <Import Project="..\packages\curl-vc140-static-32_64.7.53.0\build\native\curl-vc140-static-32_64.targets" Condition="Exists('..\packages\curl-vc140-static-32_64.7.53.0\build\native\curl-vc140-static-32_64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -176,5 +177,6 @@
     <Error Condition="!Exists('..\packages\libzip.redist.1.1.2.7\build\native\libzip.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\libzip.redist.1.1.2.7\build\native\libzip.redist.targets'))" />
     <Error Condition="!Exists('..\packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets'))" />
     <Error Condition="!Exists('..\packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('..\packages\curl-vc140-static-32_64.7.53.0\build\native\curl-vc140-static-32_64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\curl-vc140-static-32_64.7.53.0\build\native\curl-vc140-static-32_64.targets'))" />
   </Target>
 </Project>
