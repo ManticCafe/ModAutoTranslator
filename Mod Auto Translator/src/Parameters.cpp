@@ -93,10 +93,10 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	// ai翻译模块:遍历json文件并发送给ai处理
 	std::string enLang = zdir + "/cache/" + "assets/" + mod_id + "/lang/en_us.json";
 	std::string chLangOut = zdir + "/cache/";
-	translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens);
-
-
-
+	
+	if (!translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens)) {
+		return false;
+	}
 
 	// 压缩包输出目录 zdir
 
