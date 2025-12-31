@@ -161,10 +161,13 @@ bool generateJsonFile(const string& filePath,
     }
 }
 
-// AI翻译函数（使用DeepSeek API）
-string translateTextWithDeepSeek(const string& text,
+// AI翻译函数 - 修改为OpenAI格式
+string translateTextWithOpenAi(const string& text,
     const string& api_url,
-    const string& api_key) {
+    const string& api_key,
+    const string& model,
+    const float temperature,
+    const int max_tokens) {
 
     CURL* curl = curl_easy_init();
     if (!curl) {
@@ -175,9 +178,9 @@ string translateTextWithDeepSeek(const string& text,
     string response_string;
 
     try {
-        // 构建请求JSON
+        // 构建请求JSON - OpenAI格式
         json request_json;
-        request_json["model"] = "deepseek-chat";
+        request_json["model"] = model;
 
         // 构建消息数组
         json messages = json::array();
@@ -196,8 +199,8 @@ string translateTextWithDeepSeek(const string& text,
         messages.push_back(user_message);
 
         request_json["messages"] = messages;
-        request_json["max_tokens"] = 1000;
-        request_json["temperature"] = 0.5;
+        request_json["max_tokens"] = max_tokens;
+        request_json["temperature"] = temperature;
 
         string request_data = request_json.dump();
 
@@ -263,7 +266,7 @@ string translateTextWithDeepSeek(const string& text,
             return text;
         }
 
-        // 获取翻译结果
+        // 获取翻译结果 - OpenAI格式
         string translated = response_json["choices"][0]["message"]["content"];
 
         // 确保翻译结果为有效UTF-8
@@ -349,6 +352,8 @@ bool translateJsonFile(const string& inputPath,
         cout << "输出文件: " << outputFilePath << endl;
         cout << "API: " << api_url << endl;
         cout << "模型: " << model << endl;
+        cout << "max_tokens: " << max_tokens << endl;
+        cout << "temperature: " << temperature << endl;
         cout << "========================================" << endl;
         cout << "开始翻译..." << endl;
 
@@ -382,15 +387,15 @@ bool translateJsonFile(const string& inputPath,
                 cout << value << endl;
             }
 
-            // 翻译文本
-            string translatedText = translateTextWithDeepSeek(value, api_url, api_key);
+            // 翻译文本 - 传入模型参数
+            string translatedText = translateTextWithOpenAi(value, api_url, api_key, model,temperature,max_tokens);
 
             // 延迟避免API限制
             this_thread::sleep_for(chrono::milliseconds(1000)); // 增加延迟避免频率限制
 
             if (!translatedText.empty() && translatedText != value) {
                 translatedItems++;
-                cout << "    -> 成功"<< endl;
+                cout << "    -> 成功" << endl;
                 value = translatedText;
             } else {
                 failedItems++;
