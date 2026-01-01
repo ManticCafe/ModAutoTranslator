@@ -5,7 +5,6 @@
 
 using namespace std;
 
-// CURL 回调函数
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     ((string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
@@ -304,19 +303,84 @@ string translateTextWithOpenAi(const string& text,
     }
 }
 
-// 主翻译函数
+// 批量翻译函数（供线程使用）
+void translateBatch(const vector<pair<string, string>*>& batchItems,
+    const string& api_url,
+    const string& api_key,
+    const string& model,
+    float temperature,
+    int max_tokens,
+    atomic<int>& translatedItems,
+    atomic<int>& failedItems,
+    mutex& coutMutex,
+    int batchIndex) {
+
+    for (size_t i = 0; i < batchItems.size(); i++) {
+        auto& [key, value] = *batchItems[i];
+
+        // 跳过注释行
+        if (key.find("//") == 0) {
+            continue;
+        }
+
+        // 跳过空值
+        if (value.empty()) {
+            continue;
+        }
+
+        // 清理Minecraft格式代码
+        string original_value = value;
+        value = cleanMinecraftFormatting(value);
+
+        // 显示当前翻译进度（使用锁保护输出）
+        {
+            lock_guard<mutex> lock(coutMutex);
+            cout << "批次[" << batchIndex << "] 项目[" << i + 1 << "/" << batchItems.size() << "] 翻译: ";
+            if (value.length() > 50) {
+                cout << value.substr(0, 47) << "..." << endl;
+            } else {
+                cout << value << endl;
+            }
+        }
+
+        // 翻译文本
+        string translatedText = translateTextWithOpenAi(value, api_url, api_key, model, temperature, max_tokens);
+
+        // 延迟避免API限制（每个线程独立延迟）
+        this_thread::sleep_for(chrono::milliseconds(1000));
+
+        if (!translatedText.empty() && translatedText != value) {
+            translatedItems++;
+            {
+                lock_guard<mutex> lock(coutMutex);
+                cout << "    -> 成功" << endl;
+            }
+            value = translatedText;
+        } else {
+            failedItems++;
+            {
+                lock_guard<mutex> lock(coutMutex);
+                cout << "    -> 失败: 保留原文" << endl;
+            }
+            // 恢复原始值（包含格式代码）
+            value = original_value;
+        }
+    }
+}
+
+// 主翻译函数 - 添加parallel参数
 bool translateJsonFile(const string& inputPath,
     const string& outputPath,
     const string& model,
     const string& api_url,
     const string& api_key,
     float temperature,
-    int max_tokens) {
+    int max_tokens,
+    int parallel) {  // 添加parallel参数
 
     // 检查API密钥
-    if (api_key.empty() || api_key.find("your-api-key") != string::npos) {
+    if (api_key.empty()) {
         cerr << "错误: 请提供有效的API密钥" << endl;
-        cout << "提示: 请替换Translator.cpp中的API密钥为你的真实密钥" << endl;
         return false;
     }
 
@@ -352,56 +416,58 @@ bool translateJsonFile(const string& inputPath,
         cout << "输出文件: " << outputFilePath << endl;
         cout << "API: " << api_url << endl;
         cout << "模型: " << model << endl;
+        cout << "并行数: " << parallel << endl;
         cout << "max_tokens: " << max_tokens << endl;
         cout << "temperature: " << temperature << endl;
         cout << "========================================" << endl;
         cout << "开始翻译..." << endl;
 
         int totalItems = 0;
-        int translatedItems = 0;
-        int failedItems = 0;
+        atomic<int> translatedItems(0);
+        atomic<int> failedItems(0);
 
-        // 翻译每个值
-        for (auto& [key, value] : keyValuePairs) {
+        // 统计总项目数（跳过注释和空值）
+        for (const auto& [key, value] : keyValuePairs) {
             totalItems++;
+        }
 
-            // 跳过注释行
-            if (key.find("//") == 0) {
-                continue;
+        // 准备并行处理
+        vector<vector<pair<string, string>*>> batches(parallel);
+        vector<thread> threads;
+        mutex coutMutex;
+
+        // 创建批处理
+        int batchSize = (keyValuePairs.size() + parallel - 1) / parallel;
+        for (int i = 0; i < parallel; i++) {
+            for (int j = i * batchSize; j < min((i + 1) * batchSize, (int)keyValuePairs.size()); j++) {
+                batches[i].push_back(&keyValuePairs[j]);
             }
+        }
 
-            // 跳过空值
-            if (value.empty()) {
-                continue;
+        cout << "并行处理: 将" << keyValuePairs.size() << "个项目分成" << parallel << "个批次" << endl;
+        cout << "开始并行翻译..." << endl;
+
+        // 启动线程
+        for (int i = 0; i < parallel; i++) {
+            if (!batches[i].empty()) {
+                threads.emplace_back(translateBatch,
+                    ref(batches[i]),
+                    ref(api_url),
+                    ref(api_key),
+                    ref(model),
+                    temperature,
+                    max_tokens,
+                    ref(translatedItems),
+                    ref(failedItems),
+                    ref(coutMutex),
+                    i + 1);
             }
+        }
 
-            // 清理Minecraft格式代码
-            string original_value = value;
-            value = cleanMinecraftFormatting(value);
-
-            // 显示当前翻译进度
-            cout << "[" << totalItems << "/" << keyValuePairs.size() << "] 翻译: ";
-            if (value.length() > 50) {
-                cout << value.substr(0, 47) << "..." << endl;
-            } else {
-                cout << value << endl;
-            }
-
-            // 翻译文本 - 传入模型参数
-            string translatedText = translateTextWithOpenAi(value, api_url, api_key, model,temperature,max_tokens);
-
-            // 延迟避免API限制
-            this_thread::sleep_for(chrono::milliseconds(1000)); // 增加延迟避免频率限制
-
-            if (!translatedText.empty() && translatedText != value) {
-                translatedItems++;
-                cout << "    -> 成功" << endl;
-                value = translatedText;
-            } else {
-                failedItems++;
-                cout << "    -> 失败: 保留原文" << endl;
-                // 恢复原始值（包含格式代码）
-                value = original_value;
+        // 等待所有线程完成
+        for (auto& thread : threads) {
+            if (thread.joinable()) {
+                thread.join();
             }
         }
 

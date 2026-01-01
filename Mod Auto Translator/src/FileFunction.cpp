@@ -44,6 +44,8 @@ bool creatConfigFile() {
 		configFile << "    \"KEY\" : null," << std::endl;
 		configFile << "    \"temperature\" : 1.3," << std::endl;
 		configFile << "    \"max_tokens\" : 500," << std::endl;
+        configFile << "    \"parallel\" : 1," << std::endl;
+        configFile << "    \"lowVersionMode\" : false," << std::endl;
 		configFile << "    \"outputPath\" : \"./output/\"" << std::endl;
 		configFile << "}" << std::endl;
 
@@ -56,7 +58,7 @@ bool creatConfigFile() {
 	}
 }
 
-bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath) {
+bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath, int& parallel, bool& lowVersionMode) {
 	std::string filename = filepath;
 	if (std::filesystem::exists(filename)) {
 		
@@ -104,6 +106,23 @@ bool readConfigFile(std::string& model, std::string& API, std::string& KEY, floa
 		} else {
 			max_tokens = data["max_tokens"];
 		}
+
+        if (data["parallel"].is_null()) {
+            printf("ÇëÌîÐ´parallel\n");
+            return false;
+        } else if (data["parallel"] <= 0) {
+            printf("parallel !< 1\n");
+            return false;
+        } else {
+            parallel = data["parallel"];
+        }
+
+        if (data["lowVersionMode"].is_null()) {
+            printf("ÇëÌîÐ´lowVersionMode\n");
+            return false;
+        } else {
+            lowVersionMode = data["lowVersionMode"];
+        }
 
 		if (data["outputPath"].is_null()) {
 			printf("ÇëÌîÐ´ÓÐÐ§µÄÊä³öµØÖ·\n");

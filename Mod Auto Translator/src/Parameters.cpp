@@ -48,7 +48,7 @@ Message executionParameters(int argc, char* argv[]) {
 	return message;
 }
 
-bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens) {
+bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens,int parallel) {
 	// 创建子文件夹
 	std::string zdir = outputPath + getFileName(message.path.data()).c_str();
 	checkDir(zdir.data());
@@ -93,7 +93,7 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	// ai翻译模块:遍历json文件并发送给ai处理
 	std::string enLang = zdir + "/cache/" + "assets/" + mod_id + "/lang/en_us.json";
 	std::string chLangOut = zdir + "/cache/";
-	if (!translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens)) {
+	if (!translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens,parallel)) {
 		return false;
 	}
 

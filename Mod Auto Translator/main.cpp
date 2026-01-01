@@ -17,11 +17,13 @@ int main(int argc, char* argv[]) {
 	float temperature = 0.0F;
 	int max_tokens = 0;
 	std::string outputPath; // 输出路径
+	int parallel; // 并行
+	bool lowVersionMode; // 低版本模式
 
 	//==================逻辑部分==========================
 
 	// 读取配置文件，如果配置文件不存在则创建配置文件
-	readConfigFile(model,API,KEY, temperature, max_tokens,outputPath, "ModAutoTranslator-config.json");
+	readConfigFile(model,API,KEY, temperature, max_tokens,outputPath, "ModAutoTranslator-config.json",parallel,lowVersionMode);
 
 	// 创建输出文件夹
 	createOutputDir(outputPath);
@@ -40,7 +42,7 @@ int main(int argc, char* argv[]) {
 		std::string mod_id; // 模组id
 		int pack_format; // 数据包版本编号
 		
-		if (!rMode(message,outputPath,mod_id,pack_format,model,API,KEY,temperature,max_tokens)) {
+		if (!rMode(message,outputPath,mod_id,pack_format,model,API,KEY,temperature,max_tokens,parallel)) {
 			return 1;
 		}
 

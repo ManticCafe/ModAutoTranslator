@@ -24,7 +24,7 @@ std::string getFileName(char* file);
 bool creatConfigFile();
 
 // 读取配置文件 如果配置文件不存在则创建
-bool readConfigFile(std::string& model,std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath);
+bool readConfigFile(std::string& model, std::string& API, std::string& KEY, float& temperature, int& max_tokens, std::string& outputPath, std::string filepath, int& parallel, bool& lowVersionMode);
 
 // 读取json文件
 bool readJSON(int& output, std::string filepath);

@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <mutex>
+#include <atomic>
 #include <map>
 #include <direct.h>
 #include <sstream>
@@ -15,4 +17,4 @@
 using json = nlohmann::json;
 
 // З­вы
-bool translateJsonFile(const std::string& inputPath,const std::string& outputPath,const std::string& model,const std::string& api_url,const std::string& api_key,float temperature,int max_tokens);
+bool translateJsonFile(const std::string& inputPath,const std::string& outputPath,const std::string& model,const std::string& api_url,const std::string& api_key,float temperature,int max_tokens, int parallel);
