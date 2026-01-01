@@ -48,7 +48,7 @@ Message executionParameters(int argc, char* argv[]) {
 	return message;
 }
 
-bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens,int parallel) {
+bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens,int parallel, bool lowVersionMode) {
 	// 创建子文件夹
 	std::string zdir = outputPath + getFileName(message.path.data()).c_str();
 	checkDir(zdir.data());
@@ -58,31 +58,41 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	std::string tomlPath = "META-INF/mods.toml";
 	std::string mcmeta = "pack.mcmeta";
 
-	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), tomlPath.data())) {
-		printf("mods.toml文件解压失败");
-		return false;
-	}
+	// 如果为兼容模式则不需要下面代码块 变成手动输入id与pack_format ============================
+	if (!lowVersionMode) {
+		if (!unZipFile(message.path.data(), (zdir + "/cache").data(), tomlPath.data())) {
+			printf("mods.toml文件解压失败");
+			return false;
+		}
 
-	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), mcmeta.data())) {
-		printf("pack.mcmeta文件解压失败");
-		return false;
-	}
+		if (!unZipFile(message.path.data(), (zdir + "/cache").data(), mcmeta.data())) {
+			printf("pack.mcmeta文件解压失败");
+			return false;
+		}
 
-	// 读取mod.toml获取mod_id
-	if (readModIdToml(mod_id, (zdir + "/cache/" + tomlPath).data())) {
-		std::cout << "读取到modID: " << mod_id << std::endl;
+		// 读取mod.toml获取mod_id
+		if (readModIdToml(mod_id, (zdir + "/cache/" + tomlPath).data())) {
+			std::cout << "读取到modID: " << mod_id << std::endl;
+		} else {
+			printf("modID读取失败");
+			return false;
+		}
+
+		// 读取pack.mcmeta获取版本
+		if (readJSON(pack_format, (zdir + "/cache/" + mcmeta).data())) {
+			std::cout << "读取到pack_format: " << pack_format << std::endl;
+		} else {
+			printf("pack_format读取失败");
+			return false;
+		}
 	} else {
-		printf("modID读取失败");
-		return false;
+		std::cout << "当前为兼容低版本模式,需要手动输入:" << std::endl << "modID: ";
+		std::cin >> mod_id;
+		std::cout << std::endl << "pack_format: ";
+		std::cin >> pack_format;
+		std::cout << std::endl;
 	}
-
-	// 读取pack.mcmeta获取版本
-	if (readJSON(pack_format, (zdir + "/cache/" + mcmeta).data())) {
-		std::cout << "读取到pack_format: " << pack_format << std::endl;
-	} else {
-		printf("pack_format读取失败");
-		return false;
-	}
+	//==================================================================================
 
 	// 解压lang文件
 	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), ("assets/" + mod_id + "/lang/en_us.json").data())) {

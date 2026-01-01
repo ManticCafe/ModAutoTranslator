@@ -19,7 +19,7 @@ struct Message {
 Message executionParameters(int argc, char* argv[]);
 
 // -r ģʽ
-bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens, int parallel);
+bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pack_format, std::string model, std::string API, std::string KEY, float temperature, int max_tokens, int parallel, bool lowVersionMode);
 
 // -d ģʽ
 bool dMode();
