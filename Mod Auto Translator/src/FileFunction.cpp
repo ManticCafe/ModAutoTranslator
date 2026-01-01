@@ -359,3 +359,27 @@ bool readJSON(int& output, std::string filepath) {
         return false;
     }
 }
+
+bool ZipFile(char* file, char* outputPath, char* zipFileType) {
+    if (!std::filesystem::exists(file) || !std::filesystem::is_directory(file)) {
+        std::cerr << "输入文件夹不存在或不是目录: " << file << std::endl;
+        return false;
+    }
+
+    std::filesystem::path outputDir = std::filesystem::path(outputPath).parent_path();
+    if (!outputDir.empty() && !std::filesystem::exists(outputDir)) {
+        std::filesystem::create_directories(outputDir);
+    }
+
+    std::string command = "powershell -Command \"Compress-Archive -Path '" + std::string(file) + "/*' -DestinationPath '" + std::string(outputPath) + "' -Force\"";
+
+    // 执行命令
+    int result = system(command.c_str());
+
+    if (result == 0) {
+        return true;
+    } else {
+        std::cerr << "ZIP文件失败，错误代码: " << result << std::endl;
+        return false;
+    }
+}
