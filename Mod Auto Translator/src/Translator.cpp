@@ -368,7 +368,7 @@ void translateBatch(const vector<pair<string, string>*>& batchItems,
     }
 }
 
-// 主翻译函数 - 添加parallel参数
+// 主翻译函数
 bool translateJsonFile(const string& inputPath,
     const string& outputPath,
     const string& model,
@@ -376,7 +376,7 @@ bool translateJsonFile(const string& inputPath,
     const string& api_key,
     float temperature,
     int max_tokens,
-    int parallel) {  // 添加parallel参数
+    int parallel) {
 
     // 检查API密钥
     if (api_key.empty()) {
