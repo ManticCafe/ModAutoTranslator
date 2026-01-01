@@ -136,9 +136,11 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	// 压缩包输出目录 zdir
 	std::string type = ".zip";
 	
-	if (!zipFile((zdir + "/cache").data(), (zdir + "/" + mod_id + "-Translate-resources" + type).data(), type.data())) {
+	printf("正在打包资源包");
+	if (!zipFile((zdir + "/cache").data(), (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data(), type.data())) {
 		return false;
 	}
+	printf("资源包打包成功: %s", (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data());
 
 	return true;
 }
@@ -187,6 +189,15 @@ bool dMode(Message message, std::string outputPath, std::string& mod_id, std::st
 	}
 
 	// 复制jar包到 zdir目录 将翻译出来的 zh_ch.json 写入到jar包内
+	if (!copyFile(message.path.data(), (zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data())) {
+		return false;
+	}
+
+	printf("正在修改 Jar 包");
+	if (!addFileToZip((zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data(),(chLangOut + "zh_cn.json").data(),("assets/" + mod_id + "/lang/zh_cn.json").data())) {
+		return false;
+	}
+	printf("Jar包修改成功: %s", (zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data());
 
 	return true;
 }

@@ -48,4 +48,7 @@ bool readModIdToml(std::string& mod_id, char* tomlpath);
 bool zipFile(char* file, char* outputPath, char* zipFileType);
 
 // 复制文件
-bool copyFile(char* souceFile, char* targetFile);
+bool copyFile(char* sourceFile, char* targetFile);
+
+// 将文件写入压缩包
+bool addFileToZip(char* zipname, char* filepath, char* target_path);

@@ -383,3 +383,82 @@ bool zipFile(char* file, char* outputPath, char* zipFileType) {
         return false;
     }
 }
+
+bool copyFile(char* sourceFile, char* targetFile) {
+    std::ifstream source(sourceFile, std::ios::binary);
+    if (!source.is_open()) {
+        return false;
+    }
+
+    std::ofstream target(targetFile, std::ios::binary);
+    if (!target.is_open()) {
+        source.close();
+        return false;
+    }
+
+    target << source.rdbuf();
+
+    if (!source.good() && !source.eof()) {
+        source.close();
+        target.close();
+        return false;
+    }
+
+    if (!target.good()) {
+        source.close();
+        target.close();
+        return false;
+    }
+
+    source.close();
+    target.close();
+
+    return true;
+}
+
+bool addFileToZip(char* zipname, char* filepath, char* target_path) {
+    int err = 0;
+    struct zip* za = NULL;
+    struct zip_source* source = NULL;
+
+    if ((za = zip_open(zipname, ZIP_CREATE, &err)) == NULL) {
+        zip_error_t error;
+        zip_error_init_with_code(&error, err);
+        fprintf(stderr, "无法打开文件 '%s': %s\n",
+            zipname, zip_error_strerror(&error));
+        zip_error_fini(&error);
+        return false;
+    }
+
+    zip_int64_t existing_index = zip_name_locate(za, target_path, 0);
+    if (existing_index >= 0) {
+        printf("文件已存在，正在替换 %s\n", target_path);
+
+        if (zip_delete(za, existing_index) < 0) {
+            fprintf(stderr, "无法删除已存在的文件 %s\n", zip_strerror(za));
+            zip_close(za);
+            return false;
+        }
+    }
+
+    if ((source = zip_source_file(za, filepath, 0, 0)) == NULL) {
+        fprintf(stderr, "无法创建源 %s\n", zip_strerror(za));
+        zip_close(za);
+        return false;
+    }
+
+    zip_int64_t index = zip_file_add(za, target_path, source, ZIP_FL_ENC_UTF_8);
+    if (index < 0) {
+        fprintf(stderr, "无法添加文件到 %s\n", zip_strerror(za));
+        zip_source_free(source);
+        zip_close(za);
+        return false;
+    }
+
+    if (zip_close(za) < 0) {
+        fprintf(stderr, "保存文件失败 %s\n", zip_strerror(za));
+        return false;
+    }
+
+    return true;
+}
