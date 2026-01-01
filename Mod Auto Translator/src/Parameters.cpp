@@ -136,13 +136,13 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	// 压缩包输出目录 zdir
 	std::string type = ".zip";
 	
-	printf("正在打包资源包");
+	printf("正在打包资源包 \n");
 	std::filesystem::rename(zdir + "/cache/assets/" + mod_id, zdir + "/cache/assets/minecraft");
 	if (!zipFile((zdir + "/cache").data(), (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data(), type.data())) {
 		return false;
 	}
 	std::filesystem::rename(zdir + "/cache/assets/minecraft", zdir + "/cache/assets/" + mod_id);
-	printf("资源包打包成功: %s", (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data());
+	printf("资源包打包成功: %s \n", (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data());
 
 	return true;
 }
@@ -195,11 +195,11 @@ bool dMode(Message message, std::string outputPath, std::string& mod_id, std::st
 		return false;
 	}
 
-	printf("正在修改 Jar 包");
+	printf("正在修改 Jar 包 \n");
 	if (!addFileToZip((zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data(),(chLangOut + "zh_cn.json").data(),("assets/" + mod_id + "/lang/zh_cn.json").data())) {
 		return false;
 	}
-	printf("Jar包修改成功: %s", (zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data());
+	printf("Jar包修改成功: %s \n", (zdir + "/" + getFileName(message.path.data()) + "-Translate.jar").data());
 
 	return true;
 }
