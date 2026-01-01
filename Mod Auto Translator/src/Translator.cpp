@@ -168,6 +168,11 @@ string translateTextWithOpenAi(const string& text,
     const float temperature,
     const int max_tokens) {
 
+    static std::once_flag curl_global_init_flag;
+    std::call_once(curl_global_init_flag, []() {
+        curl_global_init(CURL_GLOBAL_DEFAULT);
+        });
+
     CURL* curl = curl_easy_init();
     if (!curl) {
         cerr << "CURL初始化失败" << endl;
@@ -209,6 +214,20 @@ string translateTextWithOpenAi(const string& text,
         headers = curl_slist_append(headers, "Accept: application/json");
         string auth_header = "Authorization: Bearer " + api_key;
         headers = curl_slist_append(headers, auth_header.c_str());
+
+        // 增加DNS缓存和连接设置
+        curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 300L);  // DNS缓存5分钟
+        curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);        // 启用TCP keep-alive
+        curl_easy_setopt(curl, CURLOPT_TCP_KEEPIDLE, 120L);       // 空闲120秒后开始keep-alive探测
+        curl_easy_setopt(curl, CURLOPT_TCP_KEEPINTVL, 60L);       // 每60秒探测一次
+
+        // 设置连接超时和DNS解析超时
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10L);      // 连接超时10秒
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 30L);             // 总超时30秒
+        curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 300);   // DNS缓存5分钟
+
+        // 禁用信号处理，避免多线程问题
+        curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
 
         curl_easy_setopt(curl, CURLOPT_URL, api_url.c_str());
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
