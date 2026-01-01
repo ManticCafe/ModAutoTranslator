@@ -68,7 +68,7 @@ string ensureUtf8(const string& str) {
     return result;
 }
 
-// 使用nlohmann/json解析JSON文件
+// 解析JSON文件
 bool parseJsonFile(const string& filePath,
     vector<pair<string, string>>& keyValuePairs) {
 
