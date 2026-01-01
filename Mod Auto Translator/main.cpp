@@ -50,6 +50,11 @@ int main(int argc, char* argv[]) {
 
 	if (strcmp(message.mode.data(), "-d") == 0) { // 修改jar包模式
 
+		std::string mod_id; // 模组id
+
+		if (!dMode(message, outputPath, mod_id, model, API, KEY, temperature, max_tokens, parallel, lowVersionMode)) {
+			return 1;
+		}
 	}
 
 	return 0;

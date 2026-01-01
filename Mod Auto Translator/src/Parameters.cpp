@@ -96,7 +96,7 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 
 	// 解压lang文件
 	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), ("assets/" + mod_id + "/lang/en_us.json").data())) {
-		printf("pack.mcmeta文件解压失败");
+		printf("lang文件解压失败");
 		return false;
 	}
 
@@ -136,9 +136,57 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	// 压缩包输出目录 zdir
 	std::string type = ".zip";
 	
-	if (!ZipFile((zdir + "/cache").data(), (zdir + "/" + mod_id + "-Translate-resources" + type).data(), type.data())) {
+	if (!zipFile((zdir + "/cache").data(), (zdir + "/" + mod_id + "-Translate-resources" + type).data(), type.data())) {
 		return false;
 	}
+
+	return true;
+}
+
+bool dMode(Message message, std::string outputPath, std::string& mod_id, std::string model, std::string API, std::string KEY, float temperature, int max_tokens, int parallel, bool lowVersionMode) {
+	// 创建子文件夹
+	std::string zdir = outputPath + getFileName(message.path.data()).c_str();
+	checkDir(zdir.data());
+	checkDir((zdir + "/cache").data());
+
+	// 解压mods.toml
+	std::string tomlPath = "META-INF/mods.toml";
+
+	// 如果为兼容模式则不需要下面代码块 变成手动输入id与pack_format ============================
+	if (!lowVersionMode) {
+		if (!unZipFile(message.path.data(), (zdir + "/cache").data(), tomlPath.data())) {
+			printf("mods.toml文件解压失败");
+			return false;
+		}
+
+		// 读取mod.toml获取mod_id
+		if (readModIdToml(mod_id, (zdir + "/cache/" + tomlPath).data())) {
+			std::cout << "读取到modID: " << mod_id << std::endl;
+		} else {
+			printf("modID读取失败");
+			return false;
+		}
+
+	} else {
+		std::cout << "当前为兼容低版本模式,需要手动输入:" << std::endl << "modID: ";
+		std::cin >> mod_id;
+		std::cout << std::endl;
+	}
+	//==================================================================================
+
+	// 解压lang文件
+	if (!unZipFile(message.path.data(), (zdir + "/cache").data(), ("assets/" + mod_id + "/lang/en_us.json").data())) {
+		return false;
+	}
+
+	// ai翻译模块:遍历json文件并发送给ai处理
+	std::string enLang = zdir + "/cache/assets/" + mod_id + "/lang/en_us.json";
+	std::string chLangOut = zdir + "/cache/assets/" + mod_id + "/lang/";
+	if (!translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens, parallel)) {
+		return false;
+	}
+
+	// 复制jar包到 zdir目录 将翻译出来的 zh_ch.json 写入到jar包内
 
 	return true;
 }

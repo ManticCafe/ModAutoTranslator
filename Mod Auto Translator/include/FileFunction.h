@@ -45,4 +45,7 @@ bool unZipFile(char* file, char* outputPath, char* filePath);
 bool readModIdToml(std::string& mod_id, char* tomlpath);
 
 // 压缩文件
-bool ZipFile(char* file, char* outputPath, char* zipFileType);
+bool zipFile(char* file, char* outputPath, char* zipFileType);
+
+// 复制文件
+bool copyFile(char* souceFile, char* targetFile);

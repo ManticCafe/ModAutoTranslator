@@ -360,7 +360,7 @@ bool readJSON(int& output, std::string filepath) {
     }
 }
 
-bool ZipFile(char* file, char* outputPath, char* zipFileType) {
+bool zipFile(char* file, char* outputPath, char* zipFileType) {
     if (!std::filesystem::exists(file) || !std::filesystem::is_directory(file)) {
         std::cerr << "输入文件夹不存在或不是目录: " << file << std::endl;
         return false;
