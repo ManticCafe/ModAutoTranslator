@@ -135,7 +135,10 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 
 	// Ñ¹Ëõ°üÊä³öÄ¿Â¼ zdir
 	std::string type = ".zip";
-	ZipFile((zdir + "/cache").data(), (zdir + "/" + mod_id + "-Translate-resources" + type).data(), type.data());
+	
+	if (!ZipFile((zdir + "/cache").data(), (zdir + "/" + mod_id + "-Translate-resources" + type).data(), type.data())) {
+		return false;
+	}
 
 	return true;
 }
