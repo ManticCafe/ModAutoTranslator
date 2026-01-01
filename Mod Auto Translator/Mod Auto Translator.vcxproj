@@ -107,7 +107,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\Release;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -146,7 +146,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zip.lib;%(AdditionalDependencies);libcurl.lib;libssl.lib;libcrypto.lib;ws2_32.lib;wldap32.lib;crypt32.lib;normaliz.lib;advapi32.lib;user32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\$(Configuration);C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\libzip\lib\x64\v140\Release;C:\Users\Administrator\Desktop\asm\Mod Auto Translator\Mod Auto Translator\libs\openssl-vc141-static-x86_64.1.1.0\build\native\lib\x64\static\Release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
