@@ -101,10 +101,36 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	}
 
 	// ai翻译模块:遍历json文件并发送给ai处理
-	std::string enLang = zdir + "/cache/" + "assets/" + mod_id + "/lang/en_us.json";
-	std::string chLangOut = zdir + "/cache/";
+	std::string enLang = zdir + "/cache/assets/" + mod_id + "/lang/en_us.json";
+	std::string chLangOut = zdir + "/cache/assets/" + mod_id + "/lang/";
 	if (!translateJsonFile(enLang, chLangOut, model, API, KEY, temperature, max_tokens,parallel)) {
 		return false;
+	}
+
+	// 判断是否是兼容模式 是则创建pack.mcmeta
+	if (lowVersionMode) {
+		printf("创建pack.mcmeta文件中...\n");
+		std::ofstream configFile;
+		configFile.open(zdir + "/cache/pack.mcmeta");
+		if (configFile.is_open()) {
+
+			{
+				configFile << "{" << std::endl;
+				configFile << "  \"pack\": {" << std::endl;
+				configFile << "    \"description\": {" << std::endl;
+				configFile << "      \"text\": \"" + mod_id + "Translate\"" << std::endl;
+				configFile << "    }," << std::endl;
+				configFile << "    \"pack_format\": " + std::to_string(pack_format) << std::endl;
+				configFile << "  }" << std::endl;
+				configFile << "}" << std::endl;
+			}
+
+			configFile.close();
+			printf("配置文件创建成功\n");
+		} else {
+			printf("配置文件创建失败\n");
+			return false;
+		}
 	}
 
 	// 压缩包输出目录 zdir
