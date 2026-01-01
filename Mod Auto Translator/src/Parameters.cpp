@@ -137,9 +137,11 @@ bool rMode(Message message, std::string outputPath, std::string& mod_id, int& pa
 	std::string type = ".zip";
 	
 	printf("正在打包资源包");
+	std::filesystem::rename(zdir + "/cache/assets/" + mod_id, zdir + "/cache/assets/minecraft");
 	if (!zipFile((zdir + "/cache").data(), (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data(), type.data())) {
 		return false;
 	}
+	std::filesystem::rename(zdir + "/cache/assets/minecraft", zdir + "/cache/assets/" + mod_id);
 	printf("资源包打包成功: %s", (zdir + "/" + getFileName(message.path.data()) + "-Translate-resources" + type).data());
 
 	return true;
@@ -154,7 +156,7 @@ bool dMode(Message message, std::string outputPath, std::string& mod_id, std::st
 	// 解压mods.toml
 	std::string tomlPath = "META-INF/mods.toml";
 
-	// 如果为兼容模式则不需要下面代码块 变成手动输入id与pack_format ============================
+	// 如果为兼容模式则不需要下面代码块 变成手动输入id ============================
 	if (!lowVersionMode) {
 		if (!unZipFile(message.path.data(), (zdir + "/cache").data(), tomlPath.data())) {
 			printf("mods.toml文件解压失败");
